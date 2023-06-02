@@ -1,19 +1,25 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { useWindowDimensions } from "react-native";
+
 import Colors from "../assets/Colors";
-const FeedView = ({ item }) => {
+const FeedView = ({ item , navigation}) => {
   const { width, height } = useWindowDimensions();
+  const navigateToFeedDetailsHandler = () => {
+    navigation.navigate('FeedDetails', {item})
+  }
   return (
     <View
       key={item.id}
-      style={[styles.containerView, { maxHeight: height * 0.3 }]}
+      style={[styles.containerView, { height: height * 0.3 }]}
     >
-      <View style={styles.feedView}>
-        <Image style={styles.imageView} source={{ uri: item.image }} />
-        <Text numberOfLines={2} style={styles.title}>
-          {item.title}
-        </Text>
-      </View>
+      <Pressable onPress={navigateToFeedDetailsHandler}>
+        <View style={styles.feedView}>
+          <Image style={styles.imageView} source={{ uri: item.image }} />
+          <Text numberOfLines={2} style={styles.title}>
+            {item.title}
+          </Text>
+        </View>
+      </Pressable>
     </View>
   );
 };
@@ -22,7 +28,6 @@ const styles = StyleSheet.create({
   containerView: {
     margin: 16,
     flex: 1,
-    height: 250,
     overflow: "visible",
     elevation: 2,
     shadowColor: Colors.aggresiveCardBGColor,
@@ -36,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.aggresiveCardBGColor,
   },
   imageView: {
-    height: "60%",
+    height: 150,
   },
   title: {
     fontFamily: "Anton-Regular",

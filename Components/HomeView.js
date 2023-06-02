@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useState, useEffect } from "react";
 import FeedView from "./FeedView";
 import Colors from "../assets/Colors";
-const HomeView = () => {
+const HomeView = ({navigation}) => {
   const [newsLoaded, setNewsLoaded] = useState(false);
   const [news, setNews] = useState([]);
 
@@ -32,7 +32,7 @@ if (!newsLoaded) {
         data={news}
         keyExtractor={(item) => {item.id}}
         renderItem={({item}) => 
-          <FeedView item={item} />
+          <FeedView navigation={navigation} item={item} />
         }
       />
     </View>
@@ -41,7 +41,7 @@ if (!newsLoaded) {
 
 const styles = StyleSheet.create({
   containerView: {
-    marginTop:  100,
+    marginTop:  30,
     flex: 1,
     backgroundColor: Colors.bgColor,
   },
